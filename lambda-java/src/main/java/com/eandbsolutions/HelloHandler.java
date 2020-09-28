@@ -7,7 +7,14 @@ public class HelloHandler implements RequestHandler<Object, String> {
 
     @Override
     public String handleRequest(Object input, Context context) {
-        context.getLogger().log("Input: " + input);
+        context.getLogger().log("Input: " + input + "\n");
+        KafkaService kafkaService = new KafkaService();
+        String returnedValue = kafkaService.getTaco();
+        context.getLogger().log("First: " + returnedValue + "\n");
+        kafkaService.setTaco("more tacos");
+        returnedValue = kafkaService.getTaco();
+
+        context.getLogger().log("Second: " + returnedValue + "\n");
 
         return "Hello from Lambda";
     }
